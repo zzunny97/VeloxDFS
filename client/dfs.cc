@@ -514,6 +514,9 @@ namespace velox {
 		NUM_NODES = context.settings.get<vector<string>>("network.nodes").size();
 		replica = context.settings.get<int>("filesystem.replica");
 		nodes = context.settings.get<vector<string>>("network.nodes");
+		for(auto node : nodes) {
+			cout << node << "\n";
+		}
 		initializer = _initializer;
 		BLOCK_SIZE = context.settings.get<int>("filesystem.block");
 
@@ -736,6 +739,7 @@ namespace velox {
 			slave_sockets.push_back(move(future));
 
 			cout << "IT : " << block_seq << " START: " << start << " END: " << end << " bs " << current_block_size << endl;
+			cout << "primary: " << nodes[which_server]<< " left: " << blocks_metadata[which_server].l_node << " right: " << blocks_metadata[which_server].r_node << endl;
 			if (end >= file_info.size) {
 				block_seq++;
 				break;

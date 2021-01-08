@@ -454,16 +454,16 @@ JNIEXPORT jint JNICALL Java_com_dicl_velox_VeloxDFS_readChunk
 	
   //int len = 8388608;
   int len = context.settings.get<int>("filesystem.block");
-  //FILE* fp = fopen("/home/velox/log.txt", "a");
-  //fprintf(fp, "File Block Len : %d\n", len);
+  FILE* fp = fopen("/home/velox/log.txt", "a");
+  fprintf(fp, "File Block Len : %d\n", len);
   char* c_buf = new char[len+1];
   //bzero(c_buf, len+1);
   memset(c_buf, 0, len+1);
   int32_t readBytes = vdfs->read_chunk( c_buf, (uint32_t)boff);
-  //fprintf(fp, "readBytes : %d\n", readBytes);
+  fprintf(fp, "readBytes : %d\n", readBytes);
   env->SetByteArrayRegion(buf, 0, readBytes, (jbyte*)c_buf);
-  //fprintf(fp, "SetByteArrayRegion\n");
-  //fclose(fp);
+  fprintf(fp, "SetByteArrayRegion\n");
+  fclose(fp);
   //delete[] c_buf;
   return readBytes;
   //return 0;
